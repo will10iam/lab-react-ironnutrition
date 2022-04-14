@@ -1,25 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import FoodBox from './Components/FoodBox';
+import foods from './foods.json';
+import Button from './Components/Button';
+import FoodsAdd from './Components/FoodsAdd';
+
 
 function App() {
+
+  const [showModal, setShowModal] = useState(false);
+  const [allFoods, setAllFoods] = useState([...foods]);
+
+  console.log(showModal)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <Button setShowModal={setShowModal} showModal={showModal}/>
+
+      {showModal ? <FoodsAdd /> : null }
+      
+      {allFoods.map((currentFood) => {
+        return (
+          <FoodBox nameFoods={currentFood}/>
+        )
+      })}
+
+      
     </div>
+
   );
 }
 
